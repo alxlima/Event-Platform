@@ -3,6 +3,7 @@ import { useState , FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "../components/logo";
 import { useCreateSubscriberMutation } from "../graphql/generated"; //--Mutation tipagem graphql> generated.ts de Codegen
+import codeMockUpImage from '../assets/code-mockup.png' // add solução Importe image. erro Deploy Vercel
 
 
 export function Subscribe() {
@@ -66,7 +67,7 @@ export function Subscribe() {
               </form>
            </div>
          </div>
-         <img src="/src/assets/code-mockup.png" className="mt-10" alt="" />
+           <img src={codeMockUpImage} className="mt-10" alt="" />
        </div>
    ) 
 }
@@ -78,3 +79,4 @@ export function Subscribe() {
 // leading-tight - reduso espaçãmento de testo da palavra
 // leading-tight - reduso espaçãmento de testo da palavra
 // useNavigate() - usado para redirecionar usuario para uma outra tela similar função de ancora 
+// erro depoy Imagen fundo subscriber        <img src="/src/assets/code-mockup.png" className="mt-10" alt="" />

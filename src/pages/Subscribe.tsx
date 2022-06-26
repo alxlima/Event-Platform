@@ -2,15 +2,8 @@ import { gql, useMutation } from "@apollo/client";  //[gql]- permite sintaxe hig
 import { useState , FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "../components/logo";
+import { useCreateSubscriberMutation } from "../graphql/generated"; //--Mutation tipagem graphql> generated.ts de Codegen
 
-// Mutation Query gerada no GraphCSM https://app.graphcms.com/ caminho projeto IgnetLab > API Playground
-const CREATE_SUBSCRIBER_MUTATION = gql`
-  mutation CreateSubscriber ($name: String!, $email: String! ) {
-  createSubscriber(data: {name:$name, email: $email}) {
-    id
-  }
-}
-`
 
 export function Subscribe() {
    const navigate = useNavigate();
@@ -18,7 +11,7 @@ export function Subscribe() {
    const [name, setName] = useState('');
    const [email, setMail] = useState('');
 
-   const [createSubscriber, { loading }] = useMutation(CREATE_SUBSCRIBER_MUTATION)
+   const [createSubscriber, { loading }] = useCreateSubscriberMutation()//useMutation(CREATE_SUBSCRIBER_MUTATION)
 
    async function handleSubscribe(event : FormEvent){
      event.preventDefault();

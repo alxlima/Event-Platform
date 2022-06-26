@@ -1,35 +1,13 @@
 import { gql, useQuery } from "@apollo/client"; //[gql]- permite sintaxe highlight , [useQuery]- Function rocks React
+import { useGetLessonsQuery } from "../graphql/generated";//--query tipagem graphql> generated.ts de Codegen
 
 import { Lesson } from "./Lesson";
 
-// MyQuery gerada no GraphCSM https://app.graphcms.com/ caminho projeto IgnetLab > API Playground
-const GET_LESSONS_QUERY = gql` 
-   query  {
-    lessons(orderBy: availableAt_ASC, stage: PUBLISHED) {
-        id
-        lessonType
-        availableAt
-        title
-        slug
-  }
-}
-`
-// Typagem de retorno da Query GET_LESSONS_QUERY
-interface GetLessonQueryResponse {
-   lessons: {
-       id: string
-       title: string
-       slug: string
-       availableAt: string
-       lessonType:'live' |'class'
-   }[]  
-}
-
 export function Sidebar(){
     // faço a requisição de uma query da API-CMS-Graphcms - modo usando userQuery React.
-    const { data } = useQuery<GetLessonQueryResponse>(GET_LESSONS_QUERY) //para usar [useQuery]- deve add <ApolloProvider client={client}> 
+    const { data } = useGetLessonsQuery() //para usar [useQuery]- deve add <ApolloProvider client={client}> 
                                                                          // nota foi ajustado ApolloProvider posteriormente no App.tsx
-    //testar retorno Query                                               // [data] - recebe typagem (GetLessonQueryResponse)
+    //testar retorno Query                                               // [data] - recebe typagem (useGetLessonsQuery) tipagem graphql> generated.ts
     //console.log(data);
     
     return (

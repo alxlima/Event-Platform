@@ -1,0 +1,7 @@
+#// Mutation Query gerada no GraphCSM https://app.graphcms.com/ caminho projeto IgnetLab > API Playground
+#const CREATE_SUBSCRIBER_MUTATION = gql`
+mutation CreateSubscriber ($name: String!, $email: String! ) {
+  createSubscriber(data: {name:$name, email: $email}) {
+    id
+  }
+}

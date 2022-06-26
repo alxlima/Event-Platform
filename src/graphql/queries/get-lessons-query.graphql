@@ -1,0 +1,11 @@
+# MyQuery gerada no GraphCSM https://app.graphcms.com/ caminho projeto IgnetLab > API Playground
+#const GET_LESSONS_QUERY = gql` 
+query GetLessons {
+    lessons(orderBy: availableAt_ASC, stage: PUBLISHED) {
+        id
+        lessonType
+        availableAt
+        title
+        slug
+  }
+}

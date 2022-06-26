@@ -1,0 +1,14 @@
+ #config. GraphQL puglin Codegen para API- CSM
+schema: https://api-sa-east-1.graphcms.com/v2/cl4o51fyh0m2201xx09ndc74w/master  # add Uri - Schema .env.local: VITE_API_URL Graphcms
+documents: './src/graphql/**/*.graphql'
+generates:
+ ./src/graphql/generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      reactApolloVersion: 3
+      withHooks: true # cria automatico hooks similar User especifica para cada Query/mutation
+      withHOC: false #hai orde component - padrão antigo
+      withComponent: false #padrãr criar componente cada query

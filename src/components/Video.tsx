@@ -5,41 +5,9 @@ import { DefaultUi, Player, Youtube } from "@vime/react"; // import biblioteca d
 import { gql, useQuery } from "@apollo/client";  //[gql]- permite sintaxe highlight , [useQuery]- Function rocks React
 import { CaretRight, DiscordLogo, FileArrowDown, Lightning } from "phosphor-react"; // import icons bliblioteca phospor icons
 
-
-
 // biblioteca para ajustar padrões Css de botões de controle do player video
 import '@vime/core/themes/default.css';
-
-
-// MyQuery gerada no GraphCSM https://app.graphcms.com/ caminho projeto IgnetLab > API Playground
-const GET_LESSONS_BY_SLUG_QUERY = gql`
-   query GetLessonBySlug($slug: String) {
-    lesson(where: {slug: $slug}) {
-        title
-        videoId
-        description
-        teacher {
-        bio
-        avatarURL
-        name
-    }
-  }
-}
-`
-// Typagem de retorno da Query GET_LESSONS_BY_SLUG_QUERY
-interface GetLessonBySlugResponse {
-    lessons: {
-        title: string
-        videoId: string
-        description: string
-        teacher: {
-            bio: string;
-            avatarURL: string;
-            name: string;
-        }
-    }
- }
-
+import { useGetLessonBySlugQuery } from "../graphql/generated"; //--query tipagem graphql> generated.ts de Codegen
 
 // receber a propriedade de lessões slug de videos
 interface VideProps {
@@ -48,7 +16,7 @@ interface VideProps {
 
 export function Video( props: VideProps){
     // faço a requisição de uma query da API-CMS-Graphcms - modo usando userQuery React.
-    const { data } = useQuery(GET_LESSONS_BY_SLUG_QUERY, {
+    const { data } = useGetLessonBySlugQuery({
         variables: {
             slug: props.lessonSlug,
         }
@@ -57,7 +25,7 @@ export function Video( props: VideProps){
     // testar dados query
     //console.log(data);
 
-    if (!data) {
+    if (!data || !data.lesson) {
         return (
             <div className="flex-1">
               <div className="bg-gray-900 flex justify-center">
@@ -92,18 +60,21 @@ export function Video( props: VideProps){
                            {data.lesson.description}
                         </p>
 
+                      {data.lesson.teacher && (
                         <div className="flex items-center gap-4 mt-6">
                             <img 
-                              className="h-16 w-16 rounded-full border-2 border-blue-500"
-                              src={data.lesson.teacher.avatarURL}
-                              alt=""/>
+                                className="h-16 w-16 rounded-full border-2 border-blue-500"
+                                src={data.lesson.teacher.avatarURL}
+                                alt=""
+                                />
+
                             <div className="leading-relaxed">
                                 <strong className="font-bold text-2xl block">{data.lesson.teacher.name}
                                     <span className="text-gray-200 text-sm block">{data.lesson.teacher.bio}</span>
                                 </strong>
                             </div>
-
                         </div>
+                      )}
 
                     </div>
                     <div className="flex flex-col gap-4">

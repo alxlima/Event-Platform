@@ -1,6 +1,6 @@
 <!---------- Title/ Logo -------------->
 <h1 align="center">
-  <img alt="MoveIt" title="MoveIt" src="screen_shots/logo-ignitelab.png" width="220px" />
+  <img alt="MoveIt" title="Ignitelab" src="screen_shots/Logo-IgniteLab.png" width="220px"/>
 </h1>
 
 <!-- ------- Ancoras --------------->
